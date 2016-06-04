@@ -15,6 +15,10 @@ public class Product {
     private String name;
     private BigDecimal unitPrice;
 
+    public Product() {
+        unitPrice = BigDecimal.ZERO;
+    }
+
     public int getId() {
         return id;
     }
@@ -31,11 +35,15 @@ public class Product {
         this.name = name;
     }
 
-    public BigDecimal getUnitPri() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPri(BigDecimal unitPri) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public void setUnitPrice(long unitPrice) {
+        setUnitPrice(BigDecimal.valueOf(unitPrice));
     }
 }
