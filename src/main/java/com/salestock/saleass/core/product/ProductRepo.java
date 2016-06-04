@@ -1,4 +1,4 @@
-package com.salestock.core.product;
+package com.salestock.saleass.core.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

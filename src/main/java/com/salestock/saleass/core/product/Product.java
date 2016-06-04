@@ -1,4 +1,4 @@
-package com.salestock.core.product;
+package com.salestock.saleass.core.product;
 
 import java.math.BigDecimal;
 
@@ -12,6 +12,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+
+    private String code;
     private String name;
     private BigDecimal unitPrice;
 
@@ -25,6 +27,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

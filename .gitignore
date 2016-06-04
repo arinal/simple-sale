@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings
+workbench.xmi
 
 # Created by https://www.gitignore.io/api/gradle
 
