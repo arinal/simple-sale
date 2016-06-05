@@ -3,31 +3,14 @@ package com.salestock.saleass.core.product;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import com.salestock.common.core.EntityBase;
 
 @Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-
+public class Product extends EntityBase {
     private String code;
     private String name;
-    private BigDecimal unitPrice;
-
-    public Product() {
-        unitPrice = BigDecimal.ZERO;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private BigDecimal unitPrice = BigDecimal.ZERO;
 
     public String getCode() {
         return code;

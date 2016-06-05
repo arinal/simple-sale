@@ -4,16 +4,31 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
-import com.salestock.common.EntityBase;
+import com.salestock.common.core.EntityBase;
 import com.salestock.saleass.core.product.Product;
 
 public class Sale extends EntityBase {
     private String code;
     private LocalDateTime time;
 
-    private Set<SaleLineItem> lineItems;
+    private HashSet<SaleLineItem> lineItems;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 
     public Iterable<SaleLineItem> getLineItems() {
         return lineItems;

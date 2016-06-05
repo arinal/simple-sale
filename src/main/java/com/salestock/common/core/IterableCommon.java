@@ -1,4 +1,4 @@
-package com.salestock.common;
+package com.salestock.common.core;
 
 import java.util.Spliterator;
 import java.util.Spliterators;
