@@ -1,19 +1,34 @@
-# Simple Sale Service
-Create a REST API with domain driven approach using any REST API framework in your favorite language. Required features: list items, add, remove item.
-Create service and repository layer using in any sql/nosql storage with your own data model. Create API functional test to ensure the feature is working.
-Develop the task with the mindset that it must be ready for production. A great plus if the app is deployed to hosting (heroku/aws/azure/digital ocean).
-Please push the source code into your github/bitbucket repository and we will review the codes. 
+# Simple Sale
+Simple REST API with domain driven approach. Required features: list items, add, remove item.
 
-## Assessment points
-- REST API routing design → 4 points
-- Application modelling and abstraction skill → 5 points
-- Quality assessment with functional API test or unit testing → 4 points
-- Deployment to cloud infrastructure (optional) → 3 points
+## Getting Started
+Assuming you already have JDK8+ and JAVA_HOME setup, just run:
 
-## Case study (choose one):
-- Product and Category management with hierarchical tree data for Category, enable filter based on product size, color and price range
-- Product Shopping cart supporting: add, remove item to cart, support for discount coupon and total purchase amount
+```
+git clone https://github.com/arinal/simple-sale.git && cd simple-sale
+./gradlew bootrun
+curl -i -X GET http://localhost:8080/api/product/1
+```
 
-## Passing criteria:
-- Mandatory components minimum score 6, 8 points can be spread around all components
-- The deadline is for this assessment is on Monday, 6th of June, 11.59pm. So please send us back the assessment and we will get back to you at the soonest for the feedback
+Or you can just use docker instead:
+```
+./gradlew buildDocker
+docker run -p 8080:8080 saleass
+```
+Open up another terminal to fire HTTP GET:
+```
+curl -i -X GET http://192.168.99.100:8080/api/product/1 
+```
+
+If everything is correct, you will see detailed information about product id 1.
+
+## Architecture
+This application follows onion layered principles where business logic reside in bottom-most
+of the layer. 
+- Business logic layer, everything inside `com.salestock.saleass.core` package.
+- Application layer, everything inside `com.salestock.saleass.ui.rest` package.
+- Common layer, inside `com.salestock.common` package. This layer doesn't have
+  any relationship with our application domain and can be reused in another
+  application.
+  
+

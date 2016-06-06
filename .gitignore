@@ -4,6 +4,9 @@
 .settings
 workbench.xmi
 
+### idea ###
+.idea
+
 # Created by https://www.gitignore.io/api/gradle
 
 ### Gradle ###
