@@ -15,10 +15,12 @@ spring:
   profiles: prod
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://db/saleass
+    url: jdbc:mysql://db/saleass?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+
     username: root
     password: rootp
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: create-drop
 server.port: 80
