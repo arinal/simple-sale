@@ -31,4 +31,5 @@ of the layer.
   any relationship with our application domain and can be reused in another
   application.
   
-
+As a starter, to see what does this application can do in general, have a look
+at the main test case in [`ShoppingHappyPathTest.java`](https://github.com/arinal/simple-sale/blob/master/src/test/java/com/salestock/saleass/rest/ShoppingHappyPathTest.java).

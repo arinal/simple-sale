@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestSearcher {
+public class RestHelper {
     public static List<Product> searchProduct(RestTemplate restClient, String url, String searchKey, int port) {
         ResponseEntity<PagedResources<Product>> responseEntity = restClient.exchange(
                 url, HttpMethod.GET, null,

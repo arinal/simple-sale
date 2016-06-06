@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
 @SpringApplicationConfiguration(classes=SaleApp.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
-public class SaleIntegTests {
+public class ShoppingHappyPathTest {
     @Test
     public void buying_2_momogi_1_pepsi_and_2_momogi_again() {
         String saleUrl = "http://localhost:{port}/api/sale/";
@@ -50,12 +50,12 @@ public class SaleIntegTests {
         // The user search for product to add in the sale, probably by typing
         // 'M' into the autocomplete drop-down-list. This will trigger a GET request
         // to product controller.
-        List<Product> products = RestSearcher.searchProduct(searchProductUrl, "M", port);
+        List<Product> products = RestHelper.searchProduct(searchProductUrl, "M", port);
         Product product1 = products.get(0); // user select first match, a nice Momogi snack
         lineItems.add(new SaleLineItem(product1, 2)); // make it 2 momogi please
 
         // Now, for another product, user type 'Pe'
-        products = RestSearcher.searchProduct(searchProductUrl, "Pe", port);
+        products = RestHelper.searchProduct(searchProductUrl, "Pe", port);
         Product product2 = products.get(0); // select first match, a Pepsi
         lineItems.add(new SaleLineItem(product2, 1)); // just 1 is enough
 

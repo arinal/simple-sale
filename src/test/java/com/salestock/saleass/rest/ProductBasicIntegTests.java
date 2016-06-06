@@ -11,18 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.salestock.saleass.core.product.Product;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,7 +47,7 @@ public class ProductBasicIntegTests {
     @Test
     public void get_products_by_searchkey_M() {
         String url = baseUrl + "?page={page}&size={size}&searchKey={key}";
-        List<Product> products = RestSearcher.searchProduct(restClient, url, "M", port);
+        List<Product> products = RestHelper.searchProduct(restClient, url, "M", port);
         assertThat(products.get(0).getName(), equalTo("Momogi"));
     }
 
