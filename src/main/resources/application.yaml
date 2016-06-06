@@ -1,3 +1,24 @@
-spring.h2.console:
-  enabled: true
-  path: /h2
+server.port: 8080
+spring:
+  profiles.active: dev
+  application.name: saleass
+---
+
+spring:
+  profiles: dev
+  h2.console:
+    enabled: true
+    path: /h2
+---
+
+spring:
+  profiles: prod
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://db/saleass
+    username: root
+    password: rootp
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+server.port: 80

@@ -1,0 +1,17 @@
+saleass:
+  image: arinal/saleass
+  ports:
+   - "8080:80"
+  links:
+   - db
+  environment:
+    spring_profiles_active: prod
+
+db:
+  image: mysql
+  ports:
+   - "3306:3306"
+  environment:
+    MYSQL_USER: root
+    MYSQL_ROOT_PASSWORD: rootp
+    MYSQL_DATABASE: saleass

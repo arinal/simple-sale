@@ -33,3 +33,7 @@ of the layer.
   
 As a starter, to see what does this application can do in general, have a look
 at the main test case in [`ShoppingHappyPathTest.java`](https://github.com/arinal/simple-sale/blob/master/src/test/java/com/salestock/saleass/rest/ShoppingHappyPathTest.java).
+
+As you may have seen, this application doesn't have explicit language about cart. Buying items
+is implemented by `Sale` domain to represent transaction. Cart management, like adding or removing
+item to current cart, should be implemented on client side. Hence, why it is called `simple-sale`.
