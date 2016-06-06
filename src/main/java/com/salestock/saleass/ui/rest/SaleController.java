@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salestock.common.rest.RestControllerBase;
-import com.salestock.saleass.core.product.Product;
-import com.salestock.saleass.core.product.ProductService;
+import com.salestock.saleass.core.sale.Sale;
+import com.salestock.saleass.core.sale.SaleService;
 
-@RestController @RequestMapping("/api/product")
-class ProductController extends RestControllerBase<Product> {
+@RestController @RequestMapping("/api/sale")
+class SaleController extends RestControllerBase<Sale> {
     @Autowired
-    ProductController(ProductService service) {
+    SaleController(SaleService service) {
         super(service);
     }
 }

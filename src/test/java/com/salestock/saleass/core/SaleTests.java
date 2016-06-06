@@ -1,13 +1,17 @@
 package com.salestock.saleass.core;
 
+import static com.salestock.common.core.IterableCommon.stream;
+
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.salestock.saleass.core.product.Product;
 import com.salestock.saleass.core.sale.Sale;
+import com.salestock.saleass.core.sale.SaleLineItem;
 
 import static org.assertj.core.api.Assertions.*;
-import static com.salestock.common.core.IterableCommon.stream;
 
 public class SaleTests {
     @Test
@@ -39,7 +43,7 @@ public class SaleTests {
     public void changing_product_price_shouldnot_change_sale_total() {
         saleSubject.addLineItem(momogi);
         assertThat(saleSubject.getTotal().intValue()).isEqualTo(500);
-        momogi.setUnitPrice(300);
+        momogi.setUnitPriceByLong(300);
         assertThat(saleSubject.getTotal().intValue()).isEqualTo(500);
     }
 
@@ -54,17 +58,32 @@ public class SaleTests {
         assertThat(saleSubject.getLineItems()).extracting("quantity").contains(3, 1);
     }
 
+    @Test
+    public void add_2_momogi_1_momogi_and_1_pepsi_when_group_is_performed_should_3_momogi_and_1_pepsi() {
+        List<SaleLineItem> lineItems = (List<SaleLineItem>) saleSubject.getLineItems();
+        lineItems.add(new SaleLineItem(momogi, 2));
+        lineItems.add(new SaleLineItem(momogi, 1));
+        lineItems.add(new SaleLineItem(pepsi, 1));
+        lineItems.add(new SaleLineItem(ajam, 3));
+        lineItems.add(new SaleLineItem(ajam, -10));
+        assertThat(lineItems.size()).isEqualTo(5);
+
+        saleSubject.groupLineItems();
+        assertThat(lineItems.size()).isEqualTo(3);
+        assertThat(saleSubject.getLineItems()).extracting("quantity").contains(3, 1, 3);
+    }
+
     @Before
     public void init() {
         momogi = new Product();
         momogi.setId(1);
-        momogi.setUnitPrice(500);
+        momogi.setUnitPriceByLong(500);
         pepsi = new Product();
         pepsi.setId(2);
-        pepsi.setUnitPrice(5_000);
+        pepsi.setUnitPriceByLong(5_000);
         ajam = new Product();
         ajam.setId(3);
-        ajam.setUnitPrice(50_000);
+        ajam.setUnitPriceByLong(50_000);
 
         saleSubject = new Sale();
         saleSubject.setId(1);

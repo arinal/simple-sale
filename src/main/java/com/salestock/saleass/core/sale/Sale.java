@@ -2,17 +2,23 @@ package com.salestock.saleass.core.sale;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 
 import com.salestock.common.core.EntityBase;
 import com.salestock.saleass.core.product.Product;
 
+@Entity
 public class Sale extends EntityBase {
     private String code;
     private LocalDateTime time;
 
-    private HashSet<SaleLineItem> lineItems;
+    @ElementCollection
+    private List<SaleLineItem> lineItems;
 
     public String getCode() {
         return code;
@@ -36,7 +42,7 @@ public class Sale extends EntityBase {
 
     public Sale() {
         time = LocalDateTime.now();
-        lineItems = new HashSet<SaleLineItem>();
+        lineItems = new ArrayList<>();
     }
 
     public BigDecimal getTotal() {
@@ -52,15 +58,22 @@ public class Sale extends EntityBase {
     }
 
     public void addLineItem(Product product, int quantity) {
-        SaleLineItem saleLineItem = getLineItem(product).orElseGet(() -> {
-                SaleLineItem sli = new SaleLineItem(product, 0);
-                lineItems.add(sli);
-                return sli;
-            });
-        saleLineItem.addQuantity(quantity);
+        if (quantity <= 0) return;
+        SaleLineItem sli = getLineItem(product)
+            .orElseGet(() -> new SaleLineItem(product, 0));
+        lineItems.remove(sli);
+        lineItems.add(sli.addQuantity(quantity));
     }
 
     public void addLineItem(Product product) {
         addLineItem(product, 1);
+    }
+
+    public void groupLineItems() {
+        SaleLineItem[] cloned = new SaleLineItem[lineItems.size()];
+        lineItems.toArray(cloned);
+        lineItems.clear();
+        for (SaleLineItem sli : cloned)
+            addLineItem(sli.getProduct(), sli.getQuantity());
     }
 }

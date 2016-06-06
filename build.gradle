@@ -32,6 +32,9 @@ dependencies {
   compile 'org.springframework.boot:spring-boot-starter-actuator'
 	runtime 'com.h2database:h2'
 
+  compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr353:2.4.4"
+  compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.4"
+
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
   testCompile 'org.assertj:assertj-core:3.4.1'
 }

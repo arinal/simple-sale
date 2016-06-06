@@ -23,7 +23,7 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import com.salestock.common.core.DomainServiceBase;
 import com.salestock.common.core.EntityBase;
 
-public abstract class RestControllerBase<E extends EntityBase> {
+public class RestControllerBase<E extends EntityBase> {
     private final ResourceAssemblerSupport entityAssembler;
     private final DomainServiceBase<E> service;
 
@@ -41,15 +41,18 @@ public abstract class RestControllerBase<E extends EntityBase> {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    PagedResources<E> getAll(@RequestParam(required = false) String search,
+    PagedResources<E> getAll(@RequestParam(required = false) String searchKey,
                              Pageable page, PagedResourcesAssembler assembler) {
-        Page entities = service.getAll(search, page);
+        Page entities = service.getAll(searchKey, page);
         return assembler.toResource(entities, entityAssembler);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.PUT)
     ResponseEntity put(@RequestBody E entity) {
+        if (entity.isTransient())
+            return ResponseEntity.badRequest()
+                    .body("editing a transient entity");
         HttpHeaders headers = save(entity);
         return new ResponseEntity(headers, HttpStatus.OK);
     }
@@ -58,23 +61,23 @@ public abstract class RestControllerBase<E extends EntityBase> {
     @RequestMapping(method=RequestMethod.POST)
     ResponseEntity post(@RequestBody E entity) {
         if (!entity.isTransient())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id should 0");
+            return ResponseEntity.badRequest()
+                .body("new entity id should be 0");
         HttpHeaders headers = save(entity);
         return new ResponseEntity(headers, HttpStatus.CREATED);
-    }
-
-    HttpHeaders save(E entity) {
-        int id = entity.getId();
-        E saved = service.save(entity);
-        Link link = entityAssembler.toResource(saved).getLink("self");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(link.getHref()));
-        return headers;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     ResponseEntity delete(@PathVariable int id) {
         service.delete(id);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    private HttpHeaders save(E entity) {
+        E saved = service.save(entity);
+        Link link = entityAssembler.toResource(saved).getLink("self");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(link.getHref()));
+        return headers;
     }
 }

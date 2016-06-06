@@ -21,6 +21,7 @@ public class SaleService extends DomainServiceBase<Sale> {
     public Sale save(Sale sale) {
         if (sale.isTransient())
             sale.setCode(generateCode());
+        sale.groupLineItems();
         return repository.save(sale);
     }
 
