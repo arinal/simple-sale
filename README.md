@@ -1,4 +1,7 @@
 # Simple Sale
+
+[![CircleCI](https://circleci.com/gh/arinal/simple-sale.svg?style=svg)](https://circleci.com/gh/arinal/simple-sale)
+
 Simple REST API with domain driven approach. Required features: list items, add, remove item.
 
 ## Getting Started
