@@ -14,16 +14,18 @@ Or you can just use docker instead:
 ```
 ./gradlew buildDocker
 docker run -p 8080:8080 saleass
+curl -i -X GET http://192.168.99.100:8080/api/product/1 
 ```
-Or maybe you wanna try to separate app and db? Try docker compse:
+Or maybe you wanna try to separate app and db? Try docker compose:
 ```
 docker-compose up
 ```
 Eitherway, if you use docker, you have to open up another terminal to fire HTTP GET:
 ```
-curl -i -X GET http://192.168.99.100:8080/api/product/1 
+curl -i -X GET http://192.168.99.100/api/product/1 
 ```
 
+Note that we're using port 80 if docker-compose is executed because we're trying to mimic production environment. 
 If everything is correct, you will see detailed information about product id 1.
 ```
 HTTP/1.1 200 OK
@@ -33,7 +35,7 @@ Content-Type: application/hal+json;charset=UTF-8
 Transfer-Encoding: chunked
 Date: Mon, 06 Jun 2016 04:44:59 GMT
 
-{"id":1,"code":"P01","name":"Momogi","unitPrice":500.00,"transient":false,"_links":{"self":{"href":"http://192.168.99.100:8080/api/product/1"}}} 
+{"id":1,"code":"P01","name":"Momogi","unitPrice":500.00,"transient":false,"_links":{"self":{"href":"http://192.168.99.100/api/product/1"}}} 
 ```
 
 ## Architecture
